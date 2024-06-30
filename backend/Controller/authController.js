@@ -91,7 +91,6 @@ const verifyOTP = async (req, res) => {
     const useDetails = {
       email: user.email,
       name: user.name,
-      password: user.password,
     };
 
     res.json({ token, useDetails });
