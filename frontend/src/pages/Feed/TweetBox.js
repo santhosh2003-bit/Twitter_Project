@@ -35,13 +35,16 @@ const TweetBox = () => {
       window.location.href = "/login";
     }
     // if (user.providerData[0].providerId === "password") {
-    fetch(`http://localhost:5000/api/posts/user/posts?email=${gmail}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    })
+    fetch(
+      `https://twitter-project-1-zzal.onrender.com/api/posts/user/posts?email=${gmail}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
@@ -58,7 +61,7 @@ const TweetBox = () => {
       return alert("Please Add All Fields");
     }
     if (name) {
-      fetch("http://localhost:5000/api/posts/upload", {
+      fetch("https://twitter-project-1-zzal.onrender.com/api/posts/upload", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

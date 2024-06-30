@@ -12,7 +12,7 @@ const PlanList = () => {
   const navigate = useNavigate();
   // console.log(plans);
   useEffect(() => {
-    fetch("http://localhost:5000/api/plans/plans", {
+    fetch("https://twitter-project-1-zzal.onrender.com/api/plans/plans", {
       method: "GET",
     })
       .then((res) => res.json())
@@ -28,7 +28,7 @@ const PlanList = () => {
 
   const handleSelectPlan = async (planId) => {
     const response = await fetch(
-      "http://localhost:5000/api/payments/subscribe",
+      "https://twitter-project-1-zzal.onrender.com/api/payments/subscribe",
       {
         method: "POST",
         headers: {
@@ -39,7 +39,7 @@ const PlanList = () => {
       }
     );
     const session = await response.json();
-    console.log(session);
+    // console.log(session);
     window.location.href = session.session_url;
   };
 

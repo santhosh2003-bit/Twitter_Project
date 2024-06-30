@@ -43,7 +43,7 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:5000/api/auth/register", {
+    fetch("https://twitter-project-1-zzal.onrender.com/api/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
