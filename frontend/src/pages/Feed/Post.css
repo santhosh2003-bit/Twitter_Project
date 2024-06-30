@@ -1,0 +1,42 @@
+.post_container {
+  border: 1px solid gainsboro;
+  margin-bottom: 20px;
+  /* background-color: rgb(207, 206, 206); */
+}
+.post_header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px;
+  border: 2px solid gainsboro;
+}
+.post_user_details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.post_user_details h4 {
+  margin-bottom: 0%;
+}
+.post_user_details h5 {
+  margin-top: 0%;
+}
+.verified_icon {
+  color: rgb(67, 114, 232);
+}
+.post_footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 10px;
+}
+.optionIcons {
+  cursor: pointer;
+  padding: 10px;
+}
+.optionIcons:active {
+  transform: scale(1.1);
+  transition: 0.3s ease;
+  color: rgb(67, 114, 232);
+  background-color: gainsboro;
+  border-radius: 50%;
+}

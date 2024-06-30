@@ -1,0 +1,29 @@
+.sidebarOptions {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.sidebarOptions:hover {
+  background-color: #e8f5fe;
+  border-radius: 30px;
+  color: aqua;
+  transition: color 100ms ease-out;
+}
+
+.sidebarOption__icon {
+  padding: 10px;
+}
+
+.sidebarOptions > h2 {
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+@media screen and (max-width: 688px) {
+  .sidebar_tweet {
+    display: none;
+  }
+}

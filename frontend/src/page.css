@@ -1,0 +1,18 @@
+.page {
+  border-right: 1px solid gray;
+  width: 100%;
+  /* padding: 0 180px; */
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.pagetitle {
+  color: gray;
+  text-align: center;
+  font-size: 30px;
+}
+
+.posted_Data::-webkit-scrollbar {
+  display: none;
+}

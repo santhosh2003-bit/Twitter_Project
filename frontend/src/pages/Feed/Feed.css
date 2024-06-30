@@ -1,0 +1,7 @@
+.posted_Data {
+  width: 100%;
+  overflow: scroll;
+}
+.posted_Data::-webkit-scrollbar {
+  display: none;
+}
