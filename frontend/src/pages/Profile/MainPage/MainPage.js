@@ -36,21 +36,30 @@ const MainPage = ({ user }) => {
         )
         .then((data) => {
           if (data.data.data.url) {
-            fetch("http://localhost:8080/api/posts/background", {
-              method: "PATCH",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + localStorage.getItem("token"),
-              },
-              body: JSON.stringify({
-                email: email,
-                background: data.data.data.url,
-              }),
-            })
+            fetch(
+              "https://twitter-project-1-zzal.onrender.com/api/posts/background",
+              {
+                method: "PATCH",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+                body: JSON.stringify({
+                  email: email,
+                  background: data.data.data.url,
+                }),
+              }
+            )
               .then((res) => res.json())
               .then((data) => {
                 console.log(data);
-                alert(data.message);
+                if (data.message) {
+                  alert(data.message);
+                  window.location.reload();
+                } else {
+                  alert(data.error);
+                  window.location.reload();
+                }
               });
           }
         });
@@ -71,21 +80,30 @@ const MainPage = ({ user }) => {
         )
         .then((data) => {
           if (data.data.data.url) {
-            fetch("http://localhost:8080/api/posts/profile", {
-              method: "PATCH",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + localStorage.getItem("token"),
-              },
-              body: JSON.stringify({
-                email: email,
-                profile: data.data.data.url,
-              }),
-            })
+            fetch(
+              "https://twitter-project-1-zzal.onrender.com/api/posts/profile",
+              {
+                method: "PATCH",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+                body: JSON.stringify({
+                  email: email,
+                  profile: data.data.data.url,
+                }),
+              }
+            )
               .then((res) => res.json())
               .then((data) => {
                 console.log(data);
-                alert(data.message);
+                if (data.message) {
+                  alert(data.message);
+                  window.location.reload();
+                } else {
+                  alert(data.error);
+                  window.location.reload();
+                }
               });
           }
         });
@@ -94,13 +112,16 @@ const MainPage = ({ user }) => {
 
   useEffect(() => {
     if (user.email) {
-      fetch("http://localhost:8080/api/posts/user/posts", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      })
+      fetch(
+        "https://twitter-project-1-zzal.onrender.com/api/posts/user/posts",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.user) {
@@ -148,7 +169,7 @@ const MainPage = ({ user }) => {
                   : "https://images.unsplash.com/photo-1464863979621-258859e62245?q=80&w=1886&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               }
               alt="cover"
-              className="h-[200px] w-full object-cover"
+              className="h-[300px] w-full object-cover"
             />
             <div className="absolute top-0 bg-black bg-opacity-60 w-full h-full opacity-0 flex justify-center items-center hover:opacity-100">
               <label htmlFor="image">

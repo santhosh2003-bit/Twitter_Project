@@ -24,9 +24,9 @@ const TweetBox = () => {
   const smallname = gmail.split("@")[0];
   //set Profile
   const [loggedUser] = useHooks();
-  // console.log(loggedUser);
-  const userProfileImage = loggedUser.profileImage
-    ? loggedUser.profileImage
+  // console.log(loggedUser.profile);
+  const userProfileImage = loggedUser.profile
+    ? loggedUser.profile
     : "https://images.unsplash.com/photo-1464863979621-258859e62245?q=80&w=1886&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
   const handleTweet = async (e) => {
@@ -43,21 +43,24 @@ const TweetBox = () => {
     //   setUsername(email.split("@")[0]);
     // }
     try {
-      const uploading = await fetch("http://localhost:8080/api/posts/upload", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-        body: JSON.stringify({
-          title: post,
-          content: imageUrl,
-          username: smallname,
-          name: Uname,
-          email: gmail,
-          profile: userProfileImage,
-        }),
-      });
+      const uploading = await fetch(
+        "https://twitter-project-1-zzal.onrender.com/api/posts/upload",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+          body: JSON.stringify({
+            title: post,
+            content: imageUrl,
+            username: smallname,
+            name: Uname,
+            email: gmail,
+            profile: userProfileImage,
+          }),
+        }
+      );
       const res = await uploading.json();
       if (res.message) {
         alert(res.message);
@@ -94,7 +97,7 @@ const TweetBox = () => {
     <div className="border border-gray-500 shadow-2xl w-full">
       <form className="w-full" onSubmit={handleTweet}>
         <div className="flex items-center p-5 mb-0 w-full">
-          <Avatar src={loggedUser.profile}></Avatar>
+          <Avatar src={userProfileImage}></Avatar>
           <input
             type="text"
             className="bg-white w-[90%] box-sizing text-start ml-3 border-none outline-none"

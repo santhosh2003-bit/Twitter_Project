@@ -72,7 +72,7 @@ const profileUpdate = async (req, res) => {
     if (!updatedUser) {
       return res.status(422).json({ error: "User not found" });
     }
-    res.status(200).json({ message: updatedUser });
+    res.status(200).json({ message: "background Uploaded Successfully" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

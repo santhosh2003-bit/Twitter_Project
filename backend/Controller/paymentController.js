@@ -16,8 +16,8 @@ const subscribePlan = async (req, res) => {
       return res.status(404).json({ message: "Plan not found" });
     }
     const session = await stripe.checkout.sessions.create({
-      success_url: "http://localhost:8080/success",
-      cancel_url: "http://localhost:8080/cancel",
+      success_url: "http://localhost:3000/success",
+      cancel_url: "http://localhost:3000/cancel",
       line_items: [
         {
           price: plan.stripePriceId,

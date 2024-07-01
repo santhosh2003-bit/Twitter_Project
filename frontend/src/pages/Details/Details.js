@@ -10,7 +10,7 @@ const Details = () => {
     if (!token) {
       window.location.href = "/login";
     }
-    fetch("http://localhost:8080/api/auth/access-logs", {
+    fetch("https://twitter-project-1-zzal.onrender.com/api/auth/access-logs", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
