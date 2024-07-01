@@ -10,13 +10,16 @@ const useHooks = () => {
   const email = JSON.parse(localStorage.getItem("user")).email;
   // console.log(email);
   useEffect(() => {
-    fetch("http://localhost:8080/api/auth/get-user-data", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    })
+    fetch(
+      "https://twitter-project-1-zzal.onrender.com/api/auth/get-user-data",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         // console.log(data.user);

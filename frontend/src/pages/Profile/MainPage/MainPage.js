@@ -35,17 +35,20 @@ const MainPage = ({ user }) => {
         )
         .then((data) => {
           if (data.data.data.url) {
-            fetch("http://localhost:8080/api/posts/background", {
-              method: "PATCH",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + localStorage.getItem("token"),
-              },
-              body: JSON.stringify({
-                email: email,
-                background: data.data.data.url,
-              }),
-            })
+            fetch(
+              "https://twitter-project-1-zzal.onrender.com/api/posts/background",
+              {
+                method: "PATCH",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+                body: JSON.stringify({
+                  email: email,
+                  background: data.data.data.url,
+                }),
+              }
+            )
               .then((res) => res.json())
               .then((data) => {
                 console.log(data);
@@ -70,17 +73,20 @@ const MainPage = ({ user }) => {
         )
         .then((data) => {
           if (data.data.data.url) {
-            fetch("http://localhost:8080/api/posts/profile", {
-              method: "PATCH",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + localStorage.getItem("token"),
-              },
-              body: JSON.stringify({
-                email: email,
-                profile: data.data.data.url,
-              }),
-            })
+            fetch(
+              "https://twitter-project-1-zzal.onrender.com/api/posts/profile",
+              {
+                method: "PATCH",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+                body: JSON.stringify({
+                  email: email,
+                  profile: data.data.data.url,
+                }),
+              }
+            )
               .then((res) => res.json())
               .then((data) => {
                 console.log(data);
@@ -93,13 +99,16 @@ const MainPage = ({ user }) => {
 
   useEffect(() => {
     if (user.email) {
-      fetch(`http://localhost:8080/api/posts/user/posts/${user.email}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      })
+      fetch(
+        `https://twitter-project-1-zzal.onrender.com/api/posts/user/posts/${user.email}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           setPost(data);
