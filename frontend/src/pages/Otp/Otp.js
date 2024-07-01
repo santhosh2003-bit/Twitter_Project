@@ -24,7 +24,7 @@ const Otp = () => {
       if (res.error) {
         // console.log(res.error);
         alert(res.error);
-        window.location.reload();
+        window.location.href = "/login";
         return;
       } else {
         // console.log(res);
