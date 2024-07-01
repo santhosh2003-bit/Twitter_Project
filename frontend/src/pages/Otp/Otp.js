@@ -24,6 +24,8 @@ const Otp = () => {
       if (res.error) {
         // console.log(res.error);
         alert(res.error);
+        window.location.reload();
+        return;
       } else {
         // console.log(res);
         // console.log(res.token);
