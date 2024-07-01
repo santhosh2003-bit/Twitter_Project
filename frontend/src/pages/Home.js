@@ -4,14 +4,16 @@ import Widges from "./Widges/Widges";
 // import { useAuthState } from "react-firebase-hooks/auth";
 import "../App.css";
 // import auth from "../firebase.init";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   // const user = useAuthState(auth);
   const user = JSON.parse(localStorage.getItem("user"));
 
   const handleLogout = () => {
     localStorage.clear();
+    navigate("/login");
   };
   return (
     <div className="app">
