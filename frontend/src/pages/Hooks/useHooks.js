@@ -7,25 +7,22 @@ const useHooks = () => {
   // const [user] = useAuthState(auth);
   // const email = user?.email;
   // console.log(user);
-  const email = JSON.parse(localStorage.getItem("user")).email;
+  // const email = JSON.parse(localStorage.getItem("user")).email;
   // console.log(email);
   useEffect(() => {
-    fetch(
-      "https://twitter-project-1-zzal.onrender.com/api/auth/get-user-data",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      }
-    )
+    fetch("http://localhost:8080/api/auth/get-user-data", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         // console.log(data.user);
         setLoggedUser(data.user);
       });
-  }, [email]);
+  }, []);
   return [loggedUser, setLoggedUser];
 };
 

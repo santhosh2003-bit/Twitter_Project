@@ -16,5 +16,5 @@ router.post("/upload", protect, postUpload);
 router.get("/gets", protect, getPost);
 router.patch("/background", protect, backgroundUpdate);
 router.patch("/profile", protect, profileUpdate);
-router.get("/user/posts/:email", protect, userPosts);
+router.get("/user/posts", protect, userPosts);
 module.exports = router;

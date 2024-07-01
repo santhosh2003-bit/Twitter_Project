@@ -16,6 +16,7 @@ import PublishIcon from "@mui/icons-material/Publish";
 import axios from "axios";
 
 const MainPage = ({ user }) => {
+  const [nopost, setNopost] = useState(false);
   const [loggedUser] = useHooks();
   const navigate = useNavigate();
   const [post, setPost] = useState([]);
@@ -35,20 +36,17 @@ const MainPage = ({ user }) => {
         )
         .then((data) => {
           if (data.data.data.url) {
-            fetch(
-              "https://twitter-project-1-zzal.onrender.com/api/posts/background",
-              {
-                method: "PATCH",
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: "Bearer " + localStorage.getItem("token"),
-                },
-                body: JSON.stringify({
-                  email: email,
-                  background: data.data.data.url,
-                }),
-              }
-            )
+            fetch("http://localhost:8080/api/posts/background", {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+              body: JSON.stringify({
+                email: email,
+                background: data.data.data.url,
+              }),
+            })
               .then((res) => res.json())
               .then((data) => {
                 console.log(data);
@@ -73,20 +71,17 @@ const MainPage = ({ user }) => {
         )
         .then((data) => {
           if (data.data.data.url) {
-            fetch(
-              "https://twitter-project-1-zzal.onrender.com/api/posts/profile",
-              {
-                method: "PATCH",
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: "Bearer " + localStorage.getItem("token"),
-                },
-                body: JSON.stringify({
-                  email: email,
-                  profile: data.data.data.url,
-                }),
-              }
-            )
+            fetch("http://localhost:8080/api/posts/profile", {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+              body: JSON.stringify({
+                email: email,
+                profile: data.data.data.url,
+              }),
+            })
               .then((res) => res.json())
               .then((data) => {
                 console.log(data);
@@ -99,19 +94,21 @@ const MainPage = ({ user }) => {
 
   useEffect(() => {
     if (user.email) {
-      fetch(
-        `https://twitter-project-1-zzal.onrender.com/api/posts/user/posts/${user.email}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
+      fetch("http://localhost:8080/api/posts/user/posts", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
         .then((res) => res.json())
         .then((data) => {
-          setPost(data);
+          if (data.user) {
+            setPost(data.user);
+          } else {
+            alert(data.error);
+            setNopost(true);
+          }
         });
     }
   }, [user.email]);
@@ -218,56 +215,60 @@ const MainPage = ({ user }) => {
               className="w-full h-[60vh] overflow-y-scroll mt-3"
               style={{ scrollbarWidth: "none" }}
             >
-              {post.map((data, index) => {
-                const { title, content, username, name } = data;
-                return (
-                  <div
-                    key={index}
-                    className={`w-full border ${
-                      darkMode ? "border-gray-700" : "border-gray-400"
-                    } mb-4`}
-                  >
+              {nopost ? (
+                <p className="text-center text-gray-500">No posts yet</p>
+              ) : (
+                post.map((data, index) => {
+                  const { title, content, username, name } = data;
+                  return (
                     <div
-                      className={`flex items-center gap-5 p-3 ${
-                        darkMode ? "border-gray-700" : "border-gray-300"
-                      }`}
+                      key={index}
+                      className={`w-full border ${
+                        darkMode ? "border-gray-700" : "border-gray-400"
+                      } mb-4`}
                     >
-                      <Avatar src={loggedUser.profile}></Avatar>
-                      <div className="flex flex-col items-start">
-                        <h4 className="mb-0">{name}</h4>
-                        <h5 className="mb-0">@{username}</h5>
+                      <div
+                        className={`flex items-center gap-5 p-3 ${
+                          darkMode ? "border-gray-700" : "border-gray-300"
+                        }`}
+                      >
+                        <Avatar src={loggedUser.profile}></Avatar>
+                        <div className="flex flex-col items-start">
+                          <h4 className="mb-0">{name}</h4>
+                          <h5 className="mb-0">@{username}</h5>
+                        </div>
+                        <VerifiedIcon className="text-blue-700" />
                       </div>
-                      <VerifiedIcon className="text-blue-700" />
+                      <div>
+                        <p className="text-start pl-6 text-lg">{title}</p>
+                        <img
+                          src={content}
+                          className="w-full max-h-90 object-cover"
+                          alt="post"
+                        />
+                      </div>
+                      <div className="flex justify-between p-3">
+                        <ChatBubbleOutlineIcon
+                          style={{ fontSize: "50px" }}
+                          className="cursor-pointer p-3 active:transform active:scale-110 active:text-blue-600 active:bg-gray-300 active:rounded-full"
+                        />
+                        <RepeatIcon
+                          style={{ fontSize: "50px" }}
+                          className="cursor-pointer p-3 active:transform active:scale-110 active:text-blue-600 active:bg-gray-300 active:rounded-full"
+                        />
+                        <FavoriteBorderIcon
+                          style={{ fontSize: "50px" }}
+                          className="cursor-pointer p-3 active:transform active:scale-110 active:text-blue-600 active:bg-gray-300 active:rounded-full"
+                        />
+                        <PublishIcon
+                          style={{ fontSize: "50px" }}
+                          className="cursor-pointer p-3 active:transform active:scale-110 active:text-blue-600 active:bg-gray-300 active:rounded-full"
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-start pl-6 text-lg">{title}</p>
-                      <img
-                        src={content}
-                        className="w-full max-h-80 object-cover"
-                        alt="post"
-                      />
-                    </div>
-                    <div className="flex justify-between p-3">
-                      <ChatBubbleOutlineIcon
-                        style={{ fontSize: "50px" }}
-                        className="cursor-pointer p-3 active:transform active:scale-110 active:text-blue-600 active:bg-gray-300 active:rounded-full"
-                      />
-                      <RepeatIcon
-                        style={{ fontSize: "50px" }}
-                        className="cursor-pointer p-3 active:transform active:scale-110 active:text-blue-600 active:bg-gray-300 active:rounded-full"
-                      />
-                      <FavoriteBorderIcon
-                        style={{ fontSize: "50px" }}
-                        className="cursor-pointer p-3 active:transform active:scale-110 active:text-blue-600 active:bg-gray-300 active:rounded-full"
-                      />
-                      <PublishIcon
-                        style={{ fontSize: "50px" }}
-                        className="cursor-pointer p-3 active:transform active:scale-110 active:text-blue-600 active:bg-gray-300 active:rounded-full"
-                      />
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              )}
             </div>
           </div>
         </div>

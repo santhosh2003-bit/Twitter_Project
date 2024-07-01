@@ -21,7 +21,7 @@ const Feed = () => {
   }
 
   useEffect(() => {
-    fetch("https://twitter-project-1-zzal.onrender.com/api/posts/gets", {
+    fetch("http://localhost:8080/api/posts/gets", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -30,8 +30,12 @@ const Feed = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setPost(data);
+        // console.log(data);
+        if (data.posts) {
+          setPost(data.posts);
+        } else {
+          alert(data.error);
+        }
       });
   }, [token]);
 
@@ -64,7 +68,7 @@ const Feed = () => {
                 <p className="text-start pl-6 text-lg">{title}</p>
                 <img
                   src={content}
-                  className="w-full max-h-80 object-cover"
+                  className="w-full max-h-90 object-cover"
                   alt="post"
                 />
               </div>

@@ -11,16 +11,17 @@ const TweetBox = () => {
   // const [user] = useAuthState(auth);
   const [post, setPost] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  // const [name, setName] = useState("");
+  // const [username, setUsername] = useState("");
+  // const [email, setEmail] = useState("");
   // const [profile, setProfile] = useState("");
   // console.log(user.email);
   // const gmail = user.email;
   // console.log(user.providerData[0].providerId==='password');
   const token = localStorage.getItem("token");
   const gmail = JSON.parse(localStorage.getItem("user")).email;
-  // const Uname = JSON.parse(localStorage.getItem("user")).name;
+  const Uname = JSON.parse(localStorage.getItem("user")).name;
+  const smallname = gmail.split("@")[0];
   //set Profile
   const [loggedUser] = useHooks();
   // console.log(loggedUser);
@@ -28,40 +29,21 @@ const TweetBox = () => {
     ? loggedUser.profileImage
     : "https://images.unsplash.com/photo-1464863979621-258859e62245?q=80&w=1886&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
-  const handleTweet = (e) => {
+  const handleTweet = async (e) => {
     e.preventDefault();
     if (!token) {
       console.log("Redireting in TweetBox");
       window.location.href = "/login";
     }
     // if (user.providerData[0].providerId === "password") {
-    fetch(
-      `https://twitter-project-1-zzal.onrender.com/api/posts/user/posts?email=${gmail}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data);
-        setEmail(data.email);
-        setName(data.name);
-        setUsername(data.email.split("@")[0]);
-      });
+
     // } else {
     //   setEmail(email);
     //   setName(Uname);
     //   setUsername(email.split("@")[0]);
     // }
-    if (!post || !imageUrl) {
-      return alert("Please Add All Fields");
-    }
-    if (name) {
-      fetch("https://twitter-project-1-zzal.onrender.com/api/posts/upload", {
+    try {
+      const uploading = await fetch("http://localhost:8080/api/posts/upload", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -70,20 +52,23 @@ const TweetBox = () => {
         body: JSON.stringify({
           title: post,
           content: imageUrl,
-          username: username,
-          name: name,
-          email: email,
+          username: smallname,
+          name: Uname,
+          email: gmail,
           profile: userProfileImage,
         }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.message) {
-            alert(data.message);
-          } else {
-            alert(data.error);
-          }
-        });
+      });
+      const res = await uploading.json();
+      if (res.message) {
+        alert(res.message);
+        setPost("");
+        setImageUrl("");
+      } else {
+        alert(res.error);
+        window.location.href = "/";
+      }
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
