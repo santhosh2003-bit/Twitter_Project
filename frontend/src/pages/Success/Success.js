@@ -17,7 +17,7 @@ const Success = () => {
   const handleSuccess = async () => {
     try {
       const response = await fetch(
-        "https://twitter-project-1-zzal.onrender.com/api/payments/getsession",
+        "http://localhost:8080/api/payments/getsession",
         {
           method: "GET",
           headers: {

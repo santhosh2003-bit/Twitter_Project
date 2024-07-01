@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import twitterimage from "../../assets/twitterimage.avif";
 import TwitterIcon from "@mui/icons-material/Twitter";
 // import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import auth from "../../firebase.init";
+// import auth from "../../firebase.init";
 import { GoogleButton } from "react-google-button";
 import { Link } from "react-router-dom";
-import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+// import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import "./Login.css";
-import Loading from "../Loading";
-import { Navigate } from "react-router-dom";
+// import Loading from "../Loading";
+// import { Navigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // const [signInWithEmailAndPassword, user, loading, error] =
   //   useSignInWithEmailAndPassword(auth);
-  const [signInWithGoogle, googleuser, googleloading, googleerror] =
-    useSignInWithGoogle(auth);
+  // const [signInWithGoogle, googleuser, googleloading, googleerror] =
+  //   useSignInWithGoogle(auth);
 
   // if (user) {
   //   console.log(user);
@@ -30,19 +30,19 @@ const Login = () => {
 
   //   Sign in with Google
 
-  if (googleuser) {
-    return <Navigate to="/" />;
-  }
-  if (googleerror) {
-    console.log(googleerror.message);
-  }
-  if (googleloading) {
-    <Loading />;
-  }
+  // if (googleuser) {
+  //   return <Navigate to="/" />;
+  // }
+  // if (googleerror) {
+  //   console.log(googleerror.message);
+  // }
+  // if (googleloading) {
+  //   <Loading />;
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("https://twitter-project-1-zzal.onrender.com/api/auth/login", {
+    fetch("http://localhost:8080/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -54,17 +54,19 @@ const Login = () => {
       .then((data) => {
         if (data.error) {
           console.log(data.error);
+          alert(data.error);
         } else {
           // console.log(data);
+          alert(data.message);
           console.log("Redirecting from login.js");
           window.location.href = "/verify-otp";
           // signInWithEmailAndPassword(email, password);
         }
       });
   };
-  const handleSignwithGoogle = () => {
-    signInWithGoogle();
-  };
+  // const handleSignwithGoogle = () => {
+  //   signInWithGoogle();
+  // };
   return (
     <div className="login-container">
       <div className="image-container">

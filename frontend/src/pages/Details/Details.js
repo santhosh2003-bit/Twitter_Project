@@ -10,7 +10,7 @@ const Details = () => {
     if (!token) {
       window.location.href = "/login";
     }
-    fetch("http://localhost:5000/api/auth/access-logs", {
+    fetch("http://localhost:8080/api/auth/access-logs", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

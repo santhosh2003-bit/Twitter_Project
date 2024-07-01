@@ -12,7 +12,7 @@ const PlanList = () => {
   const navigate = useNavigate();
   // console.log(plans);
   useEffect(() => {
-    fetch("https://twitter-project-1-zzal.onrender.com/api/plans/plans", {
+    fetch("http://localhost:8080/api/plans/plans", {
       method: "GET",
     })
       .then((res) => res.json())
@@ -28,7 +28,7 @@ const PlanList = () => {
 
   const handleSelectPlan = async (planId) => {
     const response = await fetch(
-      "https://twitter-project-1-zzal.onrender.com/api/payments/subscribe",
+      "http://localhost:8080/api/payments/subscribe",
       {
         method: "POST",
         headers: {

@@ -21,7 +21,7 @@ const Feed = () => {
   }
 
   useEffect(() => {
-    fetch("https://twitter-project-1-zzal.onrender.com/api/posts/gets", {
+    fetch("http://localhost:8080/api/posts/gets", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

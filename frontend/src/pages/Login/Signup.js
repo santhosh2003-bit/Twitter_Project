@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import twitterimage from "../../assets/twitterimage.avif";
 import TwitterIcon from "@mui/icons-material/Twitter";
 // import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import auth from "../../firebase.init";
+// import auth from "../../firebase.init";
 import { GoogleButton } from "react-google-button";
-import { Link, Navigate } from "react-router-dom";
-import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import { Link } from "react-router-dom";
+// import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import "./Login.css";
-import Loading from "../Loading";
+// import Loading from "../Loading";
 const Signup = () => {
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
@@ -15,8 +15,8 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   // const [createUserWithEmailAndPassword, user, loading, error] =
   //   useCreateUserWithEmailAndPassword(auth);
-  const [signInWithGoogle, googleuser, googleloading, googleerror] =
-    useSignInWithGoogle(auth);
+  // const [signInWithGoogle, googleuser, googleloading, googleerror] =
+  //   useSignInWithGoogle(auth);
 
   // if (user) {
   //   // return <Navigate to="/login" />;
@@ -31,19 +31,19 @@ const Signup = () => {
 
   //   Sign in with Google
 
-  if (googleuser) {
-    return <Navigate to="/" />;
-  }
-  if (googleerror) {
-    console.log(googleerror.message);
-  }
-  if (googleloading) {
-    <Loading />;
-  }
+  // if (googleuser) {
+  //   return <Navigate to="/" />;
+  // }
+  // if (googleerror) {
+  //   console.log(googleerror.message);
+  // }
+  // if (googleloading) {
+  //   <Loading />;
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("https://twitter-project-1-zzal.onrender.com/api/auth/register", {
+    fetch("http://localhost:8080/api/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -63,9 +63,9 @@ const Signup = () => {
         }
       });
   };
-  const handleSignwithGoogle = () => {
-    signInWithGoogle();
-  };
+  // const handleSignwithGoogle = () => {
+  //   signInWithGoogle();
+  // };
   return (
     <div className="login-container">
       <div className="image-container">
